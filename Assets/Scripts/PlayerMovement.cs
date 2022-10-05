@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 		if (touchingGround
 		&& Mathf.Abs(moveHoriz) < 0.025f
 		&& Mathf.Abs(moveVert) < 0.025f) {
+			// TODO: this doesn't actually do anything
 			rb.drag = dragSettings.Item1 * idleDragMultiplier;
 			rb.angularDrag = dragSettings.Item2 * idleDragMultiplier;
 		} else {
