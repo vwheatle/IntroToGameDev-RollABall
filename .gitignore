@@ -73,3 +73,9 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# I don't like it misleading GitHub about how much I've made.
+# You can download TextMesh Pro assets just fine anyway.
+# If you're in the distant future, don't worry, just roll back to one of the
+# commits that included TextMesh Pro and use that.
+/[Aa]ssets/TextMesh Pro/
