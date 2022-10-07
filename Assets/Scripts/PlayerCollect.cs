@@ -1,11 +1,13 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class PlayerCollect : MonoBehaviour {
+	[Tooltip("A GameObject holding a list of collectible cubes.")]
 	public GameObject collectibles;
 	
+	[Tooltip("The UI status text for how many cubes the player has collected.")]
 	public TMP_Text cubesStatus;
 	
 	private int collected = 0;

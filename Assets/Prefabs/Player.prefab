@@ -58,8 +58,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7793467113210452782}
-  m_LocalRotation: {x: 0.078459114, y: -0, z: -0, w: 0.99691737}
-  m_LocalPosition: {x: 0, y: 2.5, z: -6}
+  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
+  m_LocalPosition: {x: 0, y: 3, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1494397256943381523}
@@ -90,7 +90,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 70
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -233,9 +233,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7793467114003329717}
   serializedVersion: 2
-  m_Mass: 0.5
-  m_Drag: 0.1
-  m_AngularDrag: 0.3
+  m_Mass: 1
+  m_Drag: 0.25
+  m_AngularDrag: 0.25
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -253,9 +253,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 117b2cd31b9bc834e8f93fce99c9c2b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.5
-  forceAmount: 0.25
+  locked: 0
+  speed: 5
+  touchingGround: 0
+  forceAmount: 0.4
   torqueAmount: 1
+  idleDragMultiplier: 3
 --- !u!114 &7793467114003329708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,3 +272,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectibles: {fileID: 0}
+  cubesStatus: {fileID: 0}
