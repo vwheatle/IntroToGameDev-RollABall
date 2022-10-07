@@ -17,6 +17,7 @@ public class FollowPlayer : MonoBehaviour {
 				// Restore initial rotation, as `lookAt` probably changed it.
 				transform.rotation = initialRotation;
 			}
+			_lookAt = value;
 		}
 	}
 	
