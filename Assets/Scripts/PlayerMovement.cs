@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
 	private Rigidbody rb;
 	private SphereCollider c;
 	
+	private Vector3 initialPosition;
+	
 	// Tuple holding `drag` and `angularDrag` as items 1 and 2 respectively,
 	// to get restored once no longer idle.
 	private (float, float) dragSettings;
@@ -26,7 +28,9 @@ public class PlayerMovement : MonoBehaviour
 		rb = GetComponent<Rigidbody>();
 		c = GetComponent<SphereCollider>();
 		
+		initialPosition = transform.position;
 		dragSettings = (rb.drag, rb.angularDrag);
+		Reset();
 	}
 
 	void FixedUpdate() {
@@ -69,6 +73,21 @@ public class PlayerMovement : MonoBehaviour
 	
 	public void GoalMovementLock() {
 		locked = true;
-		idleDragMultiplier = 50;
+		idleDragMultiplier *= 30;
+	}
+	
+	public void Reset() {
+		locked = false;
+		idleDragMultiplier /= 30;
+		
+		touchingGround = false;
+		
+		
+		rb.velocity = Vector3.zero;
+		rb.angularVelocity = Vector3.zero;
+		(rb.drag, rb.angularDrag) = dragSettings;
+		
+		transform.position = initialPosition;
+		transform.rotation = Quaternion.identity;
 	}
 }

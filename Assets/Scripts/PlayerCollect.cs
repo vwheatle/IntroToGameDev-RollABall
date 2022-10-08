@@ -41,6 +41,8 @@ public class PlayerCollect : MonoBehaviour {
 	}
 	
 	void Update() {
+		if (Input.GetAxis("Reset") > 0.05f) Reset();
+		
 		if (!wentInsideGoal) goalTime = Time.time - startTime;
 		timeStatus.text = string.Format("{0}", goalTime.ToString("F2"));
 	}
@@ -52,6 +54,28 @@ public class PlayerCollect : MonoBehaviour {
 		} else {
 			cubesStatus.text = string.Format("{0}/{1} Cubes", collectedCubes.ToString("D2"), goalCubes.ToString("D2"));
 		}
+	}
+	
+	void Reset() {
+		collectedAllCubes = false;
+		wentInsideGoal = false;
+		
+		collectedCubes = 0;
+		foreach (Transform cube in collectibles.transform) {
+			cube.gameObject.SetActive(true);
+		}
+		UpdateCubesStatus();
+		
+		GetComponent<PlayerMovement>().Reset();
+		
+		
+		GameObject goal = GameObject.FindWithTag("Goal");
+		if (!goal) { Debug.LogWarning("Missing goal!"); return; }
+		
+		Collider gc = goal.GetComponent<Collider>();
+		gc.isTrigger = true;
+		
+		startTime = Time.time;
 	}
 	
 	void OnTriggerEnter(Collider other) {
