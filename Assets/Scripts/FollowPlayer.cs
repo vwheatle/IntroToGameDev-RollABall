@@ -13,7 +13,7 @@ public class FollowPlayer : MonoBehaviour {
 	public bool lookAt {
 		get { return _lookAt; }
 		set {
-			if (value == false) {
+			if (_lookAt != value && value == false) {
 				// Restore initial rotation, as `lookAt` probably changed it.
 				transform.rotation = initialRotation;
 			}
@@ -40,6 +40,8 @@ public class FollowPlayer : MonoBehaviour {
 	}
 	
 	void LateUpdate() {
+		lookAt = player.transform.position.y < -8.0f;
+		
 		if (lookAt) {
 			// Look at the player's position.
 			transform.LookAt(player.transform.position, Vector3.up);
