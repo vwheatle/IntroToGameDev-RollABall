@@ -10,6 +10,8 @@ public class PlayerCollect : MonoBehaviour {
 	[Tooltip("The UI status text for how many cubes the player has collected.")]
 	public TMP_Text cubesStatus;
 	
+	public bool achievedGoal = false;
+	
 	private int collected = 0;
 	private int goal = 1;
 	
@@ -30,12 +32,20 @@ public class PlayerCollect : MonoBehaviour {
 	}
 	
 	void UpdateCubesStatus() {
-		// cubesStatus.text = $"{collected}/{goal} Cubes";
-		cubesStatus.text = string.Format("{0,2}/{1,2} Cubes", collected.ToString("D2"), goal.ToString("D2"));
+		achievedGoal = collected >= goal;
+		if (achievedGoal) {
+			cubesStatus.text = "Reach the goal!";
+		} else {
+			cubesStatus.text = string.Format("{0}/{1} Cubes", collected.ToString("D2"), goal.ToString("D2"));
+		}
 	}
 	
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag("Pickup")) {
+			// // silly mode
+			// Rigidbody r = GetComponent<Rigidbody>();
+			// r.AddExplosionForce(99f, other.gameObject.transform.position, 1f, 9f);
+			
 			// Disable pickup
 			other.gameObject.SetActive(false);
 			
@@ -49,6 +59,20 @@ public class PlayerCollect : MonoBehaviour {
 			// (pitch raises based on how many of the goal you've collected)
 			audioSrc.pitch = Mathf.Lerp(0.8f, 1.2f, collected / (float)goal);
 			audioSrc.Play();
+			
+			// Unlock goal if you got all the cubes
+			if (collected >= goal) {
+				GameObject goal = GameObject.FindWithTag("Goal");
+				if (!goal) { Debug.LogWarning("Missing goal!"); return; }
+				
+				Collider gc = goal.GetComponent<Collider>();
+				gc.isTrigger = true;
+			}
+		} else if (other.gameObject.CompareTag("Goal")) {
+			if (collected >= goal) {
+				GetComponent<PlayerMovement>().GoalMovementLock();
+				cubesStatus.text = "Goal!!!";
+			}
 		}
 	}
 }

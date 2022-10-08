@@ -66,4 +66,9 @@ public class PlayerMovement : MonoBehaviour
 			touchingGround = false;
 		}
 	}
+	
+	public void GoalMovementLock() {
+		locked = true;
+		idleDragMultiplier = 50;
+	}
 }

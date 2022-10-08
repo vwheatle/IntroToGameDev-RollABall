@@ -12,7 +12,7 @@ public class Pickup : MonoBehaviour {
 	
 	void Update() {
 		float funny = Time.realtimeSinceStartup + (xzPos.x + xzPos.y) / 8f;
-		float yOffset = Mathf.Abs(Mathf.Cos(Mathf.PI * 2 * funny)) / 4f;
+		float yOffset = Mathf.Abs(Mathf.Cos(Mathf.PI * funny)) / 4f;
 		
 		transform.localPosition = Vector3.up * yOffset;
 		transform.Rotate(new Vector3(15, 30, 0) * Time.deltaTime);
