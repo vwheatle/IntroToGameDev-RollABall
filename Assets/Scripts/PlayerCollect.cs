@@ -10,12 +10,19 @@ public class PlayerCollect : MonoBehaviour {
 	[Tooltip("The UI status text for how many cubes the player has collected.")]
 	public TMP_Text cubesStatus;
 	
-	public bool achievedGoal = false;
+	[Tooltip("The UI status text for how long the player has been in control.")]
+	public TMP_Text timeStatus;
 	
-	private int collected = 0;
-	private int goal = 1;
+	public bool collectedAllCubes = false;
+	private bool wentInsideGoal = false;
+	
+	private int collectedCubes = 0;
+	private int goalCubes = 1;
 	
 	private AudioSource audioSrc;
+	
+	private float startTime;
+	private float goalTime;
 	
 	void Start() {
 		// Get audio source to make blip sounds later
@@ -24,19 +31,26 @@ public class PlayerCollect : MonoBehaviour {
 		if (collectibles) {
 			// Set the target number of cubes to collect
 			// to the number of children the collectibles object has.
-			goal = collectibles.transform.childCount;
+			goalCubes = collectibles.transform.childCount;
 		}
 		
 		// Initialize UI cubes display
 		UpdateCubesStatus();
+		
+		startTime = Time.time;
+	}
+	
+	void Update() {
+		if (!wentInsideGoal) goalTime = Time.time - startTime;
+		timeStatus.text = string.Format("{0}", goalTime.ToString("F2"));
 	}
 	
 	void UpdateCubesStatus() {
-		achievedGoal = collected >= goal;
-		if (achievedGoal) {
+		collectedAllCubes = collectedCubes >= goalCubes;
+		if (collectedAllCubes) {
 			cubesStatus.text = "Reach the goal!";
 		} else {
-			cubesStatus.text = string.Format("{0}/{1} Cubes", collected.ToString("D2"), goal.ToString("D2"));
+			cubesStatus.text = string.Format("{0}/{1} Cubes", collectedCubes.ToString("D2"), goalCubes.ToString("D2"));
 		}
 	}
 	
@@ -50,18 +64,18 @@ public class PlayerCollect : MonoBehaviour {
 			other.gameObject.SetActive(false);
 			
 			// Increment number of collected cubes
-			collected++;
+			collectedCubes++;
 			
 			// Update UI text displaying number of collected cubes
 			UpdateCubesStatus();
 			
 			// Play little blip sound effect
 			// (pitch raises based on how many of the goal you've collected)
-			audioSrc.pitch = Mathf.Lerp(0.8f, 1.2f, collected / (float)goal);
+			audioSrc.pitch = Mathf.Lerp(0.8f, 1.2f, collectedCubes / (float)goalCubes);
 			audioSrc.Play();
 			
 			// Unlock goal if you got all the cubes
-			if (collected >= goal) {
+			if (collectedCubes >= goalCubes) {
 				GameObject goal = GameObject.FindWithTag("Goal");
 				if (!goal) { Debug.LogWarning("Missing goal!"); return; }
 				
@@ -69,9 +83,10 @@ public class PlayerCollect : MonoBehaviour {
 				gc.isTrigger = true;
 			}
 		} else if (other.gameObject.CompareTag("Goal")) {
-			if (collected >= goal) {
+			if (collectedCubes >= goalCubes && !wentInsideGoal) {
 				GetComponent<PlayerMovement>().GoalMovementLock();
 				cubesStatus.text = "Goal!!!";
+				wentInsideGoal = true;
 			}
 		}
 	}
