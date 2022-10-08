@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -13,12 +13,19 @@ public class PlayerCollect : MonoBehaviour {
 	private int collected = 0;
 	private int goal = 1;
 	
+	private AudioSource audioSrc;
+	
 	void Start() {
-		// UNITY WHY IS THIS UNDER TRANSFORM???
-		// THIS HAS NO RELATION TO SPATIAL SHIT!
-		goal = collectibles.transform.childCount;
+		// Get audio source to make blip sounds later
+		audioSrc = GetComponent<AudioSource>();
 		
-		// Anyway,
+		if (collectibles) {
+			// Set the target number of cubes to collect
+			// to the number of children the collectibles object has.
+			goal = collectibles.transform.childCount;
+		}
+		
+		// Initialize UI cubes display
 		UpdateCubesStatus();
 	}
 	
@@ -29,9 +36,19 @@ public class PlayerCollect : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag("Pickup")) {
+			// Disable pickup
 			other.gameObject.SetActive(false);
+			
+			// Increment number of collected cubes
 			collected++;
+			
+			// Update UI text displaying number of collected cubes
 			UpdateCubesStatus();
+			
+			// Play little blip sound effect
+			// (pitch raises based on how many of the goal you've collected)
+			audioSrc.pitch = Mathf.Lerp(0.8f, 1.2f, collected / (float)goal);
+			audioSrc.Play();
 		}
 	}
 }
