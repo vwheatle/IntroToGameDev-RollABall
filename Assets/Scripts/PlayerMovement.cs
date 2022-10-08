@@ -60,5 +60,10 @@ public class PlayerMovement : MonoBehaviour
 			rb.AddForce(movementForce * speed * forceAmount);
 		
 		rb.AddTorque(movementTorque * speed * torqueAmount);
+		
+		if (touchingGround && Input.GetAxis("Jump") > 0.1f) {
+			rb.AddForce(Vector3.up * speed * 75f);
+			touchingGround = false;
+		}
 	}
 }
