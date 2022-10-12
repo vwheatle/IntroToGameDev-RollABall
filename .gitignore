@@ -79,3 +79,4 @@ crashlytics-build.properties
 # If you're in the distant future, don't worry, just roll back to one of the
 # commits that included TextMesh Pro and use that.
 /[Aa]ssets/TextMesh Pro/
+/[Aa]ssets/TextMesh Pro.meta
