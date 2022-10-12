@@ -17,4 +17,6 @@ public class Pickup : MonoBehaviour {
 		transform.localPosition = Vector3.up * yOffset;
 		transform.Rotate(new Vector3(15, 30, 0) * Time.deltaTime);
 	}
+	
+	public virtual bool TryCollect() { return true; }
 }

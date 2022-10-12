@@ -80,6 +80,9 @@ public class PlayerCollect : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag("Pickup")) {
+			Pickup pickup = other.transform.GetChild(0).GetComponent<Pickup>();
+			if (!pickup.TryCollect()) return;
+			
 			// // silly mode
 			// Rigidbody r = GetComponent<Rigidbody>();
 			// r.AddExplosionForce(99f, other.gameObject.transform.position, 1f, 9f);
