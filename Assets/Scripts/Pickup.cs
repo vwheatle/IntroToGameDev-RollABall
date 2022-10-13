@@ -36,15 +36,17 @@ public class Pickup : MonoBehaviour {
 		if (collected) return;
 		
 		if (other.gameObject.CompareTag("Player")) {
-			collected = true;
-			GetComponentInChildren<Renderer>().enabled = false;
-			
-			pickupsManager.collectedPickups++;
-			
-			audioSrc.pitch = Mathf.Lerp(0.8f, 1.2f, pickupsManager.percentCollectedPickups);
-			audioSrc.Play();
+			if (TryCollect(other)) {
+				collected = true;
+				GetComponentInChildren<Renderer>().enabled = false;
+				
+				pickupsManager.collectedPickups++;
+				
+				audioSrc.pitch = Mathf.Lerp(0.8f, 1.2f, pickupsManager.percentCollectedPickups);
+				audioSrc.Play();
+			}
 		}
 	}
 	
-	public virtual bool TryCollect() { return true; }
+	public virtual bool TryCollect(Collider other) { return true; }
 }

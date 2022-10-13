@@ -1,9 +1,9 @@
 using UnityEngine;
 
 public class PickupType1 : Pickup {
-	public override bool TryCollect() {
-		Debug.Log("indeed, tyou cannot collect me because i am type 1!!");
-		return false;
-		// return base.TryCollect();
+	public override bool TryCollect(Collider other) {
+		pickupsManager.vulnerable = true;
+		pickupsManager.vulnerabilitySeconds -= 1.0f;
+		return true;
 	}
 }

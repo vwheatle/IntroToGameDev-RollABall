@@ -45,17 +45,24 @@ public class PickupsManager : MonoBehaviour {
 	}
 	
 	private bool _vulnerable = false;
-	bool vulnerable {
+	public bool vulnerable {
 		get => _vulnerable;
 		set {
-			if (_vulnerable == value) return;
-			
-			foreach (Transform pickup in transform) {
-				PickupType2 type2 = pickup.GetComponent<PickupType2>();
-				if (type2 == null) continue;
+			if (value) {
+				vulnerabilityStartTime = Time.time;
+				vulnerabilitySeconds = Mathf.Max(2.0f, vulnerabilitySeconds) - 1.0f;
 				
-				if (value) type2.AllowPickup();
-				else       type2.DenyPickup();
+				foreach (Transform pickup in transform) {
+					PickupType2 pickup2 = pickup.gameObject.GetComponent<PickupType2>();
+					if (pickup2 != null) pickup2.AllowPickup();
+				}
+			} else {
+				vulnerabilityStartTime = 0f;
+				
+				foreach (Transform pickup in transform) {
+					PickupType2 pickup2 = pickup.gameObject.GetComponent<PickupType2>();
+					if (pickup2 != null) pickup2.DenyPickup();
+				}
 			}
 			
 			_vulnerable = value;
@@ -73,6 +80,16 @@ public class PickupsManager : MonoBehaviour {
 			if (pickupComponent != null) {
 				pickupComponent.pickupsManager = this;
 				pickupComponent.Reset();
+				
+				// hack
+				PickupType2 a = pickup.gameObject.GetComponent<PickupType2>();
+				if (a != null) {
+					if (a.isClone) {
+						Destroy(a.gameObject);
+						continue;
+					}
+					a.DenyPickup();
+				}
 			} else {
 				Debug.LogWarning("unexpected item in bagging area");
 			}
