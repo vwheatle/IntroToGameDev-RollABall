@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 5625200674870617622}
   m_Layer: 0
   m_Name: Ball
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -640,10 +640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f147bd807cb290478e3b9cb20488684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectibles: {fileID: 0}
-  cubesStatus: {fileID: 8031154345140747718}
   timeStatus: {fileID: 2604512134794254405}
-  collectedAllCubes: 0
 --- !u!82 &5625200674870617622
 AudioSource:
   m_ObjectHideFlags: 0

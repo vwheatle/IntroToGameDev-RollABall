@@ -77,8 +77,8 @@ public class PlayerMovement : MonoBehaviour
 	}
 	
 	public void Reset() {
+		if (locked) idleDragMultiplier /= 30;
 		locked = false;
-		idleDragMultiplier /= 30;
 		
 		touchingGround = false;
 		

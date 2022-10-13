@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4482466, g: 0.4982726, b: 0.57558215, a: 1}
+  m_IndirectSpecularColor: {r: 0.44824702, g: 0.49827307, b: 0.575583, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -127,6 +127,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 377082299}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &87531463 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8031154345140747718, guid: 3a45dce07d94a3b4faa93c10692f2e7c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7793467112459950718}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &133299913
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -542,6 +554,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1913820924276535772, guid: cf7b8d45e6b7ebc458887de6dc293edc,
     type: 3}
   m_PrefabInstance: {fileID: 674089143}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &316406725 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8917773383483359352, guid: 889e753a05b560a4eab00d972dc209ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 8917773383753414360}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &377082299
 PrefabInstance:
@@ -2177,9 +2195,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1540165195}
+  - component: {fileID: 1540165196}
   m_Layer: 0
   m_Name: Collectibles
-  m_TagString: Untagged
+  m_TagString: PickupsManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2212,6 +2231,22 @@ Transform:
   m_Father: {fileID: 2113649819}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1540165196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540165194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e671ee2bc36f88f479cded0e69203181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupsStatus: {fileID: 87531463}
+  vulnerabilitySeconds: 10
+  goalPickups: -1
+  goal: {fileID: 316406725}
 --- !u!4 &1613081689 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1913820924276535772, guid: cf7b8d45e6b7ebc458887de6dc293edc,
